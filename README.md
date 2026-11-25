@@ -98,6 +98,36 @@ computed part never mix.
 I open the folder in **Obsidian** to browse it: the graph view shows the whole network, and the
 canvases show each module with its concepts and typed arrows.
 
+## Design choice: an ontology, not GraphRAG or a vector database
+
+The vault is a graph, but it is **not GraphRAG** and uses **no embeddings or vector store**.
+
+- **GraphRAG** lets an LLM extract entities and relations from documents automatically, summarises
+  communities of the resulting graph and retrieves over it, usually together with vector search.
+  The graph is large, built by the model, and hard to check.
+- **Study Vault** has a fixed schema, curated nodes and typed edges that are validated by code and
+  reviewed by a second agent, and every edge carries its source. Retrieval is navigation: the agent
+  searches card titles, reads the index or a card, and follows typed links. On average it opens
+  2.1 files per question, and in evaluation run 4 it found the right card for 28 of 28 questions.
+
+Why this fits here:
+
+| Criterion | Ontology (this project) | GraphRAG or vector search |
+|---|---|---|
+| Scale | About 700 cards, small enough to curate by hand | Pays off at thousands of documents |
+| Precision | "Taught or applied?" is an exact typed relation | Similarity can blur taught and applied |
+| Trust | Every edge is checked and points to a page | Edges extracted by a model, hard to verify |
+| Cost | No index to build or host; a few small files per question | Embedding, indexing and storage costs |
+| Explainability | The agent can show the chain: project → applies → concept → broader | Retrieval scores are hard to explain |
+
+My Weekend 5 course on retrieval said a knowledge graph is not worth it under a few hundred
+documents. The vault follows that advice for the *automatic* graph, and keeps a small hand-checked
+one instead. If the vault grows a lot, or I need full-text questions over all slides, the next step
+would be hybrid search over the raw pages, with the ontology as the metadata filter.
+
+**Obsidian** is only the viewer: I open the folder as an Obsidian vault to browse the graph view and
+the module canvases. The ontology does not depend on it; the cards are plain Markdown.
+
 ## How the vault was filled
 
 ```mermaid
