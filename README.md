@@ -1,8 +1,23 @@
 # Study Vault: an ontology of what I study, built for AI agents
 
-**Study Vault** is a map of everything I study at ETH Zurich: programmes, courses, weekly modules,
-**646 concepts** and **18 of my own projects**, connected by typed relations. It is written as plain
-Markdown cards with a small ontology on top, so that both I and AI agents can use it.
+**Study Vault** is a domain ontology of my studies at ETH Zurich: a typed knowledge graph of
+programmes, courses, modules, **646 concepts** and **18 of my own projects**, with **2,966 typed edges**
+between them. It is designed as a retrieval layer for AI agents: instead of embedding my course files
+in a vector store, agents navigate a curated, machine-checkable graph.
+
+- **Schema:** five classes (programme, course, module, concept, project) and six typed relations with
+  fixed domain and range: `part_of`, `teaches`, `applies`, `requires`, and the SKOS relations
+  `broader` and `related` (SKOS is the W3C standard for concept schemes and taxonomies).
+- **Integrity constraints:** a validator checks referential integrity, the domain and range of every
+  relation, required fields, that every source file exists, and that the `broader` and `requires`
+  hierarchies are acyclic.
+- **Rule-based inference:** a deterministic reasoner computes the transitive closure of `broader`,
+  the inverse relations (narrower, taught in, applied in, required by), prerequisite chains with
+  coverage, and taught or applied status propagated up the hierarchy.
+- **Provenance:** every assertion points to its evidence, down to the page of a slide deck or the
+  notebook of a project, so an agent can cite it and a human can verify it.
+- **Serialisation:** one Markdown file per entity with YAML front matter, readable by humans
+  (in Obsidian) and by agents, and compiled into a JSON catalog and one-file exports.
 
 I built it for three reasons:
 
