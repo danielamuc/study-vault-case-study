@@ -18,9 +18,9 @@ I built it for three reasons:
   <img src="images/ontology-compliance-rag.png" width="90%" alt="A slice of the ontology: my Compliance RAG project applies ten concepts; the Weekend 5 module teaches five of them; each concept points to a broader concept such as information retrieval">
 </p>
 
-I am the designer and product owner: I decided the ontology, the rules, the evaluation and every
-trade-off. Claude Code (Claude Opus and Sonnet agents) did the reading, extraction and coding under
-those rules. **The course material belongs to ETH and to me, so this repository shows the method only.**
+I am an AI product manager who goes deep into the technical side. I designed the ontology, the
+inference rules and the evaluation, and made every trade-off. Claude Code (Claude Opus and Sonnet
+agents) did the reading, extraction and coding under my rules, and I checked the results. **The course material belongs to ETH and to me, so this repository shows the method only.**
 The vault itself is private; three sample cards are included as an example.
 
 ---
